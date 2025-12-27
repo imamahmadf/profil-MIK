@@ -1,0 +1,37 @@
+{
+  "name": "backend-profile",
+  "version": "1.0.0",
+  "description": "API Express.js dengan MySQL dan Sequelize",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "db:migrate": "sequelize-cli db:migrate",
+    "db:migrate:undo": "sequelize-cli db:migrate:undo",
+    "db:seed": "sequelize-cli db:seed:all",
+    "db:seed:undo": "sequelize-cli db:seed:undo:all",
+    "db:create": "sequelize-cli db:create",
+    "db:drop": "sequelize-cli db:drop"
+  },
+  "keywords": [
+    "express",
+    "mysql",
+    "sequelize",
+    "api"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.3",
+    "mysql2": "^3.6.5",
+    "sequelize": "^6.35.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2",
+    "sequelize-cli": "^6.6.2"
+  }
+}
