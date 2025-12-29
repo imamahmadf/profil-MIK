@@ -7,5 +7,17 @@ const db = {
 
 // Import dan inisialisasi models
 db.User = require("./User")(sequelize, Sequelize.DataTypes);
+db.Berita = require("./berita")(sequelize, Sequelize.DataTypes);
+db.FotoBerita = require("./FotoBerita")(sequelize, Sequelize.DataTypes);
+db.Galeri = require("./galeri")(sequelize, Sequelize.DataTypes);
+
+// Define associations
+db.Berita.associate(db);
+db.FotoBerita.associate = function (models) {
+  db.FotoBerita.belongsTo(models.Berita, {
+    foreignKey: "beritaId",
+    as: "berita",
+  });
+};
 
 module.exports = db;

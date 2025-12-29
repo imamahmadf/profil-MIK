@@ -6,7 +6,12 @@ const { join, dirname } = require("path");
 
 const { env, port, whitelistedDomain } = require("./src/config");
 const { sequelize } = require("./src/database");
-const { authRouter, userRouter } = require("./src/routers");
+const {
+  authRouter,
+  userRouter,
+  beritaRouter,
+  galeriRouter,
+} = require("./src/routers");
 
 const PORT = port || 7000;
 const app = express();
@@ -21,10 +26,15 @@ app.use(
 );
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+// Static files untuk uploads
+app.use("/uploads", express.static(`${__dirname}/public/uploads`));
 app.use("/api", express.static(`${__dirname}/public`));
 
 app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
+app.use("/api/berita", beritaRouter);
+app.use("/api/galeri", galeriRouter);
 
 app.get("/api", (req, res) => {
   res.send(`Hello, this is my API`);
@@ -50,8 +60,31 @@ app.use((req, res, next) => {
 // error
 app.use((err, req, res, next) => {
   if (req.path.includes("/api/")) {
-    console.error("Error : ", err.stack);
-    res.status(500).send("Error !");
+    console.error("Error : ", err.message);
+    console.error("Stack : ", err.stack);
+
+    // Handle Sequelize errors
+    if (err.name === "SequelizeDatabaseError") {
+      return res.status(500).json({
+        success: false,
+        message: "Database error",
+        error: process.env.NODE_ENV === "development" ? err.message : undefined,
+      });
+    }
+
+    if (err.name === "SequelizeValidationError") {
+      return res.status(400).json({
+        success: false,
+        message: "Validation error",
+        errors: err.errors?.map((e) => e.message) || [],
+      });
+    }
+
+    res.status(err.status || 500).json({
+      success: false,
+      message: err.message || "Internal server error",
+      error: process.env.NODE_ENV === "development" ? err.stack : undefined,
+    });
   } else {
     next();
   }

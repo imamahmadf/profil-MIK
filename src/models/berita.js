@@ -1,25 +1,44 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class berita extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
+  const Berita = sequelize.define(
+    "Berita",
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+      },
+      judul: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      isi: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+      },
+      slug: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        unique: true,
+      },
+      foto: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+    },
+    {
+      tableName: "berita",
+      timestamps: true,
+      underscored: false,
     }
-  }
-  berita.init({
-    judul: DataTypes.STRING,
-    isi: DataTypes.TEXT,
-    slug: DataTypes.TEXT
-  }, {
-    sequelize,
-    modelName: 'berita',
-  });
-  return berita;
+  );
+
+  // Define associations
+  Berita.associate = function (models) {
+    Berita.hasMany(models.FotoBerita, {
+      foreignKey: "beritaId",
+      as: "fotos",
+    });
+  };
+
+  return Berita;
 };
