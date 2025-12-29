@@ -11,6 +11,7 @@ const {
   userRouter,
   beritaRouter,
   galeriRouter,
+  rekamJejakRouter,
 } = require("./src/routers");
 
 const PORT = port || 7000;
@@ -30,12 +31,11 @@ app.use(express.urlencoded({ extended: true }));
 // Static files untuk uploads
 app.use("/uploads", express.static(`${__dirname}/public/uploads`));
 app.use("/api", express.static(`${__dirname}/public`));
-
 app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
 app.use("/api/berita", beritaRouter);
 app.use("/api/galeri", galeriRouter);
-
+app.use("/api/rekam-jejak", rekamJejakRouter);
 app.get("/api", (req, res) => {
   res.send(`Hello, this is my API`);
 });

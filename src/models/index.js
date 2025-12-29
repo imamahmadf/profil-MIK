@@ -10,6 +10,7 @@ db.User = require("./User")(sequelize, Sequelize.DataTypes);
 db.Berita = require("./berita")(sequelize, Sequelize.DataTypes);
 db.FotoBerita = require("./FotoBerita")(sequelize, Sequelize.DataTypes);
 db.Galeri = require("./galeri")(sequelize, Sequelize.DataTypes);
+db.RekamJejak = require("./rekamJejak")(sequelize, Sequelize.DataTypes);
 
 // Define associations
 db.Berita.associate(db);
