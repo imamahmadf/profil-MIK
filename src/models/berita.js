@@ -7,14 +7,6 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true,
       },
-      judul: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      isi: {
-        type: DataTypes.TEXT,
-        allowNull: false,
-      },
       slug: {
         type: DataTypes.STRING,
         allowNull: true,
@@ -23,6 +15,10 @@ module.exports = (sequelize, DataTypes) => {
       foto: {
         type: DataTypes.STRING,
         allowNull: true,
+      },
+      is_published: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
       },
     },
     {
@@ -37,6 +33,12 @@ module.exports = (sequelize, DataTypes) => {
     Berita.hasMany(models.FotoBerita, {
       foreignKey: "beritaId",
       as: "fotos",
+    });
+
+    // Association dengan translations
+    Berita.hasMany(models.BeritaTranslation, {
+      foreignKey: "berita_id",
+      as: "translations",
     });
   };
 

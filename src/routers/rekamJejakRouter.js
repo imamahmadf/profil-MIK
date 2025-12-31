@@ -9,6 +9,7 @@ const {
 // Public routes
 router.get("/", rekamJejakController.getAllRekamJejak);
 router.get("/:id", rekamJejakController.getRekamJejakById);
+router.get("/slug/:slug", rekamJejakController.getRekamJejakBySlug);
 
 // Protected routes (require authentication)
 router.post(

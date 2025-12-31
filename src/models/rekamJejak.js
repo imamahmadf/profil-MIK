@@ -7,14 +7,6 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true,
       },
-      judul: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      isi: {
-        type: DataTypes.TEXT,
-        allowNull: false,
-      },
       foto: {
         type: DataTypes.STRING,
         allowNull: true,
@@ -26,6 +18,15 @@ module.exports = (sequelize, DataTypes) => {
       underscored: false,
     }
   );
+
+  // Define associations
+  RekamJejak.associate = function (models) {
+    // Association dengan translations
+    RekamJejak.hasMany(models.RekamJejakTranslation, {
+      foreignKey: "rekam_jejak_id",
+      as: "translations",
+    });
+  };
 
   return RekamJejak;
 };
