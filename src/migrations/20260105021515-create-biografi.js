@@ -3,20 +3,12 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("hero", {
+    await queryInterface.createTable("biografi", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
-      },
-      foto: {
-        type: Sequelize.STRING,
-        allowNull: true,
-      },
-      is_active: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: true,
       },
       createdAt: {
         allowNull: false,
@@ -32,19 +24,19 @@ module.exports = {
       },
     });
 
-    // Buat tabel hero_translations
-    await queryInterface.createTable("hero_translations", {
+    // Buat tabel biografi_translations
+    await queryInterface.createTable("biografi_translations", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      hero_id: {
+      biografi_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: "hero",
+          model: "biografi",
           key: "id",
         },
         onDelete: "CASCADE",
@@ -58,16 +50,16 @@ module.exports = {
         },
         onDelete: "CASCADE",
       },
-      nama: {
+      judul: {
         type: Sequelize.STRING(255),
+        allowNull: false,
+      },
+      isi: {
+        type: Sequelize.TEXT,
         allowNull: false,
       },
       slogan: {
         type: Sequelize.STRING(255),
-        allowNull: true,
-      },
-      isi: {
-        type: Sequelize.TEXT,
         allowNull: true,
       },
       createdAt: {
@@ -85,19 +77,19 @@ module.exports = {
     });
 
     // Tambahkan unique constraint
-    await queryInterface.addConstraint("hero_translations", {
-      fields: ["hero_id", "language_id"],
+    await queryInterface.addConstraint("biografi_translations", {
+      fields: ["biografi_id", "language_id"],
       type: "unique",
-      name: "unique_hero_language",
+      name: "unique_biografi_language",
     });
 
     // Tambahkan index untuk performa
-    await queryInterface.addIndex("hero_translations", ["language_id"]);
-    await queryInterface.addIndex("hero_translations", ["hero_id"]);
+    await queryInterface.addIndex("biografi_translations", ["language_id"]);
+    await queryInterface.addIndex("biografi_translations", ["biografi_id"]);
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("hero_translations");
-    await queryInterface.dropTable("hero");
+    await queryInterface.dropTable("biografi_translations");
+    await queryInterface.dropTable("biografi");
   },
 };

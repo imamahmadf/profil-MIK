@@ -20,6 +20,45 @@ db.RekamJejakTranslation = require("./RekamJejakTranslation")(
   sequelize,
   Sequelize.DataTypes
 );
+db.Hero = require("./hero")(sequelize, Sequelize.DataTypes);
+db.HeroTranslation = require("./HeroTranslation")(
+  sequelize,
+  Sequelize.DataTypes
+);
+db.Testimoni = require("./testimoni")(sequelize, Sequelize.DataTypes);
+db.TestimoniTranslation = require("./TestimoniTranslation")(
+  sequelize,
+  Sequelize.DataTypes
+);
+db.Biografi = require("./biografi")(sequelize, Sequelize.DataTypes);
+db.BiografiTranslation = require("./BiografiTranslation")(
+  sequelize,
+  Sequelize.DataTypes
+);
+db.TemaPublikasi = require("./temaPublikasi")(sequelize, Sequelize.DataTypes);
+db.TemaPublikasiTranslation = require("./TemaPublikasiTranslation")(
+  sequelize,
+  Sequelize.DataTypes
+);
+db.Publikasi = require("./publikasi")(sequelize, Sequelize.DataTypes);
+db.PublikasiTranslation = require("./PublikasiTranslation")(
+  sequelize,
+  Sequelize.DataTypes
+);
+db.Pesan = require("./pesan")(sequelize, Sequelize.DataTypes);
+db.Pengalaman = require("./pengalaman")(sequelize, Sequelize.DataTypes);
+db.PengalamanTranslation = require("./PengalamanTranslation")(
+  sequelize,
+  Sequelize.DataTypes
+);
+db.KegiatanPengalaman = require("./kegiatanPengalaman")(
+  sequelize,
+  Sequelize.DataTypes
+);
+db.KegiatanPengalamanTranslation = require("./KegiatanPengalamanTranslation")(
+  sequelize,
+  Sequelize.DataTypes
+);
 
 // Define associations
 Object.keys(db).forEach((modelName) => {

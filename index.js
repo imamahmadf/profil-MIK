@@ -12,6 +12,13 @@ const {
   beritaRouter,
   galeriRouter,
   rekamJejakRouter,
+  heroRouter,
+  testimoniRouter,
+  biografiRouter,
+  temaPublikasiRouter,
+  publikasiRouter,
+  pesanRouter,
+  pengalamanRouter,
 } = require("./src/routers");
 
 const PORT = port || 7000;
@@ -21,7 +28,7 @@ app.use(
   cors({
     origin: whitelistedDomain,
     credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
@@ -36,6 +43,13 @@ app.use("/api/user", userRouter);
 app.use("/api/berita", beritaRouter);
 app.use("/api/galeri", galeriRouter);
 app.use("/api/rekam-jejak", rekamJejakRouter);
+app.use("/api/hero", heroRouter);
+app.use("/api/testimoni", testimoniRouter);
+app.use("/api/biografi", biografiRouter);
+app.use("/api/tema-publikasi", temaPublikasiRouter);
+app.use("/api/publikasi", publikasiRouter);
+app.use("/api/pesan", pesanRouter);
+app.use("/api/pengalaman", pengalamanRouter);
 app.get("/api", (req, res) => {
   res.send(`Hello, this is my API`);
 });

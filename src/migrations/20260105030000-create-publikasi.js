@@ -3,7 +3,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("hero", {
+    await queryInterface.createTable("publikasi", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -14,9 +14,22 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true,
       },
-      is_active: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: true,
+      tanggal: {
+        type: Sequelize.DATE,
+        allowNull: true,
+      },
+      temaId: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        references: {
+          model: "tema_publikasi",
+          key: "id",
+        },
+        onDelete: "SET NULL",
+      },
+      link: {
+        type: Sequelize.STRING(500),
+        allowNull: true,
       },
       createdAt: {
         allowNull: false,
@@ -32,19 +45,19 @@ module.exports = {
       },
     });
 
-    // Buat tabel hero_translations
-    await queryInterface.createTable("hero_translations", {
+    // Buat tabel publikasi_translations
+    await queryInterface.createTable("publikasi_translations", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      hero_id: {
+      publikasi_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: "hero",
+          model: "publikasi",
           key: "id",
         },
         onDelete: "CASCADE",
@@ -58,15 +71,11 @@ module.exports = {
         },
         onDelete: "CASCADE",
       },
-      nama: {
+      judul: {
         type: Sequelize.STRING(255),
         allowNull: false,
       },
-      slogan: {
-        type: Sequelize.STRING(255),
-        allowNull: true,
-      },
-      isi: {
+      ringkasan: {
         type: Sequelize.TEXT,
         allowNull: true,
       },
@@ -85,19 +94,20 @@ module.exports = {
     });
 
     // Tambahkan unique constraint
-    await queryInterface.addConstraint("hero_translations", {
-      fields: ["hero_id", "language_id"],
+    await queryInterface.addConstraint("publikasi_translations", {
+      fields: ["publikasi_id", "language_id"],
       type: "unique",
-      name: "unique_hero_language",
+      name: "unique_publikasi_language",
     });
 
     // Tambahkan index untuk performa
-    await queryInterface.addIndex("hero_translations", ["language_id"]);
-    await queryInterface.addIndex("hero_translations", ["hero_id"]);
+    await queryInterface.addIndex("publikasi_translations", ["language_id"]);
+    await queryInterface.addIndex("publikasi_translations", ["publikasi_id"]);
+    await queryInterface.addIndex("publikasi", ["temaId"]);
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("hero_translations");
-    await queryInterface.dropTable("hero");
+    await queryInterface.dropTable("publikasi_translations");
+    await queryInterface.dropTable("publikasi");
   },
 };
