@@ -672,10 +672,23 @@ const deletePengalaman = async (req, res, next) => {
   }
 };
 
+const cekDataBase = async (req, res, next) => {
+  try {
+    const result = await Pengalaman.findAll({});
+
+    res
+      .status(200)
+      .json({ massage: "data berhasil dicek di database", result });
+  } catch (error) {
+    console.error("error in cek databse", error);
+  }
+};
+
 module.exports = {
   getAllPengalaman,
   getPengalamanById,
   createPengalaman,
   updatePengalaman,
   deletePengalaman,
+  cekDataBase,
 };

@@ -12,4 +12,5 @@ router.post("/", authenticate, pengalamanController.createPengalaman);
 router.put("/:id", authenticate, pengalamanController.updatePengalaman);
 router.delete("/:id", authenticate, pengalamanController.deletePengalaman);
 
+router.get("/cek-database", pengalamanController.cekDataBase);
 module.exports = router;

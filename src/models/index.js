@@ -59,6 +59,16 @@ db.KegiatanPengalamanTranslation = require("./KegiatanPengalamanTranslation")(
   sequelize,
   Sequelize.DataTypes
 );
+db.Tentang = require("./tentang")(sequelize, Sequelize.DataTypes);
+db.TentangTranslation = require("./TentangTranslation")(
+  sequelize,
+  Sequelize.DataTypes
+);
+db.FaktaUnik = require("./faktaUnik")(sequelize, Sequelize.DataTypes);
+db.FaktaUnikTranslation = require("./FaktaUnikTranslation")(
+  sequelize,
+  Sequelize.DataTypes
+);
 
 // Define associations
 Object.keys(db).forEach((modelName) => {
