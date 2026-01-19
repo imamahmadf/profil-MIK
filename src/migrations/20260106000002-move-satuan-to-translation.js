@@ -4,19 +4,23 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     // Cek apakah kolom satuan ada di tabel fakta_unik
-    const tableDescription = await queryInterface.describeTable("fakta_unik");
+    const faktaUnikDescription = await queryInterface.describeTable("fakta_unik");
+    // Cek apakah kolom satuan sudah ada di tabel fakta_unik_translations
+    const translationDescription = await queryInterface.describeTable("fakta_unik_translations");
 
-    if (tableDescription.satuan) {
+    if (faktaUnikDescription.satuan) {
       // Migrasi data existing: simpan data satuan ke temporary
       const [existingData] = await queryInterface.sequelize.query(
         "SELECT id, satuan FROM fakta_unik WHERE satuan IS NOT NULL"
       );
 
-      // Tambahkan kolom satuan ke tabel fakta_unik_translations
-      await queryInterface.addColumn("fakta_unik_translations", "satuan", {
-        type: Sequelize.STRING(50),
-        allowNull: true,
-      });
+      // Tambahkan kolom satuan ke tabel fakta_unik_translations hanya jika belum ada
+      if (!translationDescription.satuan) {
+        await queryInterface.addColumn("fakta_unik_translations", "satuan", {
+          type: Sequelize.STRING(50),
+          allowNull: true,
+        });
+      }
 
       // Migrasi data satuan ke translations dengan bahasa default
       if (existingData && existingData.length > 0) {
@@ -49,11 +53,13 @@ module.exports = {
       // Hapus kolom satuan dari tabel fakta_unik
       await queryInterface.removeColumn("fakta_unik", "satuan");
     } else {
-      // Jika kolom satuan belum ada di tabel utama, langsung tambahkan ke translation
-      await queryInterface.addColumn("fakta_unik_translations", "satuan", {
-        type: Sequelize.STRING(50),
-        allowNull: true,
-      });
+      // Jika kolom satuan belum ada di tabel utama, tambahkan ke translation hanya jika belum ada
+      if (!translationDescription.satuan) {
+        await queryInterface.addColumn("fakta_unik_translations", "satuan", {
+          type: Sequelize.STRING(50),
+          allowNull: true,
+        });
+      }
     }
   },
 

@@ -414,7 +414,8 @@ const updateFaktaUnik = async (req, res, next) => {
           if (existingTranslation) {
             // Update translation yang sudah ada
             if (trans.isi !== undefined) existingTranslation.isi = trans.isi;
-            if (trans.satuan !== undefined) existingTranslation.satuan = trans.satuan;
+            if (trans.satuan !== undefined)
+              existingTranslation.satuan = trans.satuan;
             await existingTranslation.save();
           } else {
             // Buat translation baru
