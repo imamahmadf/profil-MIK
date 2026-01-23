@@ -69,6 +69,9 @@ db.FaktaUnikTranslation = require("./FaktaUnikTranslation")(
   sequelize,
   Sequelize.DataTypes
 );
+db.SosialMedia = require("./sosialMedia")(sequelize, Sequelize.DataTypes);
+db.JenisLogo = require("./jenisLogo")(sequelize, Sequelize.DataTypes);
+db.Logo = require("./logo")(sequelize, Sequelize.DataTypes);
 
 // Define associations
 Object.keys(db).forEach((modelName) => {

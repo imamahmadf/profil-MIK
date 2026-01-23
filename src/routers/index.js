@@ -13,6 +13,8 @@ const pesanRouter = require("./pesanRouter");
 const pengalamanRouter = require("./pengalamanRouter");
 const tentangRouter = require("./tentangRouter");
 const faktaUnikRouter = require("./faktaUnikRouter");
+const logoRouter = require("./logoRouter");
+const jenisLogoRouter = require("./jenisLogoRouter");
 
 module.exports = {
   authRouter,
@@ -29,4 +31,6 @@ module.exports = {
   pengalamanRouter,
   tentangRouter,
   faktaUnikRouter,
+  logoRouter,
+  jenisLogoRouter,
 };

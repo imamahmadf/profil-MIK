@@ -21,6 +21,8 @@ const {
   pengalamanRouter,
   tentangRouter,
   faktaUnikRouter,
+  logoRouter,
+  jenisLogoRouter,
 } = require("./src/routers");
 
 const PORT = port || 7000;
@@ -54,6 +56,8 @@ app.use("/api/pesan", pesanRouter);
 app.use("/api/pengalaman", pengalamanRouter);
 app.use("/api/tentang", tentangRouter);
 app.use("/api/fakta-unik", faktaUnikRouter);
+app.use("/api/logo", logoRouter);
+app.use("/api/jenis-logo", jenisLogoRouter);
 app.get("/api", (req, res) => {
   res.send(`Hello, this is my API`);
 });
